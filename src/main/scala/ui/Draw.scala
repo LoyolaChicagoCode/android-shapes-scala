@@ -18,6 +18,7 @@ class Draw(canvas: Canvas, paint: Paint) {
 
   def apply(s: Shape): Unit = s match {
     case Circle(radius) => canvas.drawCircle(0, 0, radius, paint)
+    case Rectangle(width, height) => canvas.drawRect(0, 0, width, height, paint)
     case _ =>
   }
 }

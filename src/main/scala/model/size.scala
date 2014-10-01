@@ -10,6 +10,14 @@ object size {
   // TODO entirely your job
 
   def apply(s: Shape): Int = s match {
+    case Circle(_) => 1
+    case Rectangle(_, _) => 1
+    case Polygon(pointList) => 1
+    case Location(_, _, _) => 1
+    case Fill(_) => 1
+    case Outline(_) => 1
+    case Stroke(_, _) => 1
+    case Group(shapesList) => shapesList.seq.length
     case _ => -1
   }
 }

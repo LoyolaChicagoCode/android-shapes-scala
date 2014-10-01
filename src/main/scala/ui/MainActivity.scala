@@ -26,4 +26,5 @@ class MainActivity extends Activity with TypedActivity {
     super.onStart()
     Log.i(TAG, "onStart")
   }
+
 }

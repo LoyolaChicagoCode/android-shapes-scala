@@ -24,7 +24,7 @@ class DrawWidget(context: Context) extends View(context) {
   private val paint = new Paint
 
   override protected def onDraw(canvas: Canvas): Unit = {
-    val shape = fixtures.complexGroup
+    val shape = fixtures.simpleRectangle
     val b @ Location(x, y, Rectangle(w, h)) = boundingBox(shape)
     setBackgroundColor(Color.WHITE)
     canvas.translate(-x, -y)
