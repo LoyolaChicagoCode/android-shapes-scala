@@ -47,3 +47,7 @@ proguardOptions in Android ++= Seq(
 )
 
 apkbuildExcludes in Android += "LICENSE.txt"
+
+ideaExcludeFolders += ".idea"
+
+ideaExcludeFolders += ".idea_modules"
