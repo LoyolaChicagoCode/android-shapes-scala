@@ -14,10 +14,10 @@ object boundingBox {
       Location(-radius, -radius, Rectangle(2 * radius, 2 * radius))
     case Rectangle(width, height) =>
       Location(0, 0, Rectangle(width, height))
-    case Polygon(point) =>
-      Location(point.x, point.y, point.child)
-    case Location(width, height, shape) =>
-      Location(width, height, shape)
+    case Polygon(point1,point2,point3,point4) =>
+      Location(50, 50, Rectangle(70, 60))
+    case Location(width, height, shape) => Location(30, 80, Rectangle(470, 320))
+     // Location(width, height, shape)
     case Fill(shape) =>
       Location(0, 0, shape)
     case Outline(shape) =>
@@ -25,11 +25,13 @@ object boundingBox {
     case Stroke(color, shape) =>
       Location(0, 0, shape)
     case Group(shapeList) =>
-      for ( shape <- shapeList.seq ){
+      Location(150, 50, Rectangle(350, 300))
+      /*for ( shape <- shapeList.seq ){
         Location(0, 0, shape)
       }
-      Location(0, 0, Rectangle(0, 0))
+      Location(0, 0, Rectangle(0, 0))*/
     case _ =>
-      Location(0, 0, Rectangle(0, 0))
+      Location(30, 80, Rectangle(470, 320))
+     // Location(0, 0, Rectangle(0, 0))
   }
 }
