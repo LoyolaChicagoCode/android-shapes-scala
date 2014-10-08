@@ -12,12 +12,29 @@ object size {
   def apply(s: Shape): Int = s match {
     case Circle(_) => 1
     case Rectangle(_, _) => 1
-    case Polygon(pointList) => 1
-    case Location(_, _, _) => 1
-    case Fill(_) => 1
-    case Outline(_) => 1
-    case Stroke(_, _) => 1
-    case Group(shapesList) => shapesList.seq.length
+    case Polygon(_, _, _, _) => 1
+    case Location(_, _, shape) =>
+      var len = 0
+      len+=this.apply(shape)
+      len
+    case Fill(shape) =>
+      var len = 0
+      len+=this.apply(shape)
+      len
+    case Outline(shape) =>
+      var len = 0
+      len+=this.apply(shape)
+      len
+    case Stroke(_, shape) =>
+      var len = 0
+      len+=this.apply(shape)
+      len
+    case Group(shapeList) =>
+      var len = 0
+      for (shape:Shape <- shapeList) {
+        len+=this.apply(shape)
+      }
+      len
     case _ => -1
   }
 }
