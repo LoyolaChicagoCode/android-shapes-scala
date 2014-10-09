@@ -24,27 +24,32 @@ class Draw(canvas: Canvas, paint: Paint) {
     case Rectangle(width, height) =>
               canvas.drawRect(0, 0, width, height, paint)
     case Polygon(p1, p2, p3, p4) =>
-              canvas.drawLines(Array[Float](p1.x, p1.y, p2.x, p2.y, p2.x, p2.y, p3.x, p3.y, p3.x, p3.y, p4.x, p4.y, p1.x, p1.y, p4.x, p4.y), paint)
+              val points = Seq[Point](p1,p2,p2,p3,p3,p4,p4,p1)
+              def g(p:Point) = Seq[Float](p.x,p.y)
+              var arr = points.flatMap(g)
+             canvas.drawLines(arr.toArray[Float],paint)
+             //Array[Float] (p1.x, p1.y, p2.x, p2.y, p2.x, p2.y, p3.x, p3.y, p3.x, p3.y, p4.x, p4.y, p1.x, p1.y, p4.x, p4.y), paint)
     case Fill(shape) =>
               paint.setStyle(Style.FILL_AND_STROKE)
-              apply(shape)
+              this.apply(shape)
               paint.setStyle(Style.STROKE)
     case Location(width, height, shape) =>
               canvas.translate(width, height)
-              apply(shape)
+              this.apply(shape)
               canvas.translate(-width, -height)
     case Outline(shape) =>
               paint.setStyle(Style.STROKE)
-              apply(shape)
+              this.apply(shape)
               paint.setStyle(Style.STROKE)
     case Stroke(color, shape) =>
               paint.setColor(color)
-              apply(shape)
+              this.apply(shape)
               paint.setColor(Color.BLACK)
     case Group(shapeList) =>
-              for (shape:Shape <- shapeList) {
-                apply(shape)
-              }
+              shapeList.map(x => this.apply(x))
+              /*for (shape:Shape <- shapeList) {
+                this.apply(shape)
+              }*/
 
     case _ =>
   }
