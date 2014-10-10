@@ -27,6 +27,7 @@ object boundingBox {
         ymax = Math.max(ymax, point.y)
 
       }
+      // Using Maps for Polygon
       points.map(point => pointBounds(point))
       xmax -= xmin
       ymax -= ymin
@@ -48,24 +49,22 @@ object boundingBox {
       this.apply(shape)
 
     case Group(shapeList) =>
-      var xmin = Int.MaxValue
-      var ymin = Int.MaxValue
-      var xmax = Int.MinValue
-      var ymax = Int.MinValue
 
-      def findBounds(shape: Shape) {
+      var bounds = scala.collection.mutable.Map("xmin"-> Int.MaxValue ,"ymin" ->Int.MaxValue,"xmax" -> Int.MinValue,"ymax" -> Int.MinValue)
+      // Using foldLeft for Group
+      shapeList.foldLeft(bounds)((bound,shape) => {
         val loc = this.apply(shape)
-        xmin = Math.min(xmin, loc.x)
-        ymin = Math.min(ymin, loc.y)
-        var shRect = loc.child.asInstanceOf[Rectangle]
-        xmax = Math.max(xmax, shRect.width + loc.x)
-        ymax = Math.max(ymax, shRect.height + loc.y)
-      }
+        bound("xmin") = Math.min(bound("xmin"), loc.x)
+        bound("ymin") = Math.min(bound("ymin"), loc.y)
+        var shRect = loc.child.asInstanceOf[Rectangle] // This is always a Rectangle
+        bound("xmax") = Math.max(bound("xmax"), shRect.width + loc.x)
+        bound("ymax") = Math.max(bound("ymax"), shRect.height + loc.y)
+        bound
+      })
 
-      shapeList.map(shape =>findBounds(shape))
-      xmax -= xmin
-      ymax -= ymin
-      Location(xmin, ymin, Rectangle(xmax, ymax))
+      bounds("xmax") -= bounds("xmin")
+      bounds("ymax") -= bounds("ymin")
+      Location(bounds("xmin"), bounds("ymin"), Rectangle(bounds("xmax"), bounds("ymax")))
 
     case _ =>
       Location(0, 0, Rectangle(0, 0))
