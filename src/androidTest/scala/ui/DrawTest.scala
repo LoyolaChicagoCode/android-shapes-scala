@@ -38,10 +38,8 @@ class DrawTest extends FlatSpec with MockitoSugar {
   "The draw behavior" should "work for a simple circle" in {
     val s = support
     import s._
-    draw(simpleLocation)
-    order.verify(canvas).translate(70, 30)
-    order.verify(canvas).drawRect(0, 0, 80, 120, paint)
-    order.verify(canvas).translate(-70, -30)
+    draw(simpleCircle)
+    order.verify(canvas).drawCircle(0, 0, 50, paint)
   }
 
   it should "work for a simple location" in {
