@@ -48,7 +48,7 @@ class Draw(canvas: Canvas, paint: Paint) {
               this.apply(shape)
               paint.setColor(Color.BLACK)
     case Group(shapeList) =>
-              shapeList.map(x => this.apply(x))
+              shapeList.map(shape => this.apply(shape))
     case _ =>
   }
 }
