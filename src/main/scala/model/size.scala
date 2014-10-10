@@ -30,12 +30,7 @@ object size {
       len+=this.apply(shape)
       len
     case Group(shapeList) =>
-      var len = 0
-      shapeList.map(x => len+=this.apply(x))
-      /*for (shape:Shape <- shapeList) {
-        len += this.apply(shape)
-      }*/
-      len
+      shapeList.foldLeft(0)((len,shape) => len+this.apply(shape))
     case _ => -1
   }
 }
