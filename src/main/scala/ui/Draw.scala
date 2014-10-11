@@ -25,12 +25,10 @@ class Draw(canvas: Canvas, paint: Paint) {
               canvas.drawRect(0, 0, width, height, paint)
     case Polygon(points @ _*) =>
               def g(p:Point) = Seq[Point](p,p)
-              var arr = points.flatMap(g)
-              arr = arr.drop(1)
-              arr = arr++List(arr.head)
               def f(p:Point) = Seq[Float](p.x,p.y)
-              var arr1 = arr.flatMap(f)
-              canvas.drawLines(arr1.toArray[Float],paint)
+              val arr = points.flatMap(g).drop(1)
+              val arr1  = (arr ++ List(arr.head)).flatMap(f).toArray[Float]
+              canvas.drawLines(arr1, paint)
     case Fill(shape) =>
               paint.setStyle(Style.FILL_AND_STROKE)
               this.apply(shape)

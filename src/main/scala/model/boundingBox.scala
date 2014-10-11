@@ -20,7 +20,6 @@ object boundingBox {
       Location(0, 0, Rectangle(width, height))
 
     case Polygon(points @ _*) =>
-
       val bounds = mutable.Map("xmin"-> Int.MaxValue ,"ymin" -> Int.MaxValue,"xmax" -> Int.MinValue,"ymax" -> Int.MinValue)
       points.foldLeft(bounds)((bound,point) => findBounds(bound, point))
       bounds("xmax") -= bounds("xmin")
@@ -28,7 +27,7 @@ object boundingBox {
       Location(bounds("xmin"), bounds("ymin"), Rectangle(bounds("xmax"), bounds("ymax")))
 
     case Location(width, height, shape) =>
-        var loc:Location = this.apply(shape)
+        val loc:Location = this.apply(shape)
         val w = width + loc.x
         val h = height + loc.y
         Location(w, h,loc.child)
@@ -43,13 +42,11 @@ object boundingBox {
       this.apply(shape)
 
     case Group(shapeList) =>
-
       val bounds = mutable.Map("xmin"-> Int.MaxValue ,"ymin" -> Int.MaxValue,"xmax" -> Int.MinValue,"ymax" -> Int.MinValue)
       shapeList.foldLeft(bounds)((bound,shape) => findBounds(bound, shape))
       bounds("xmax") -= bounds("xmin")
       bounds("ymax") -= bounds("ymin")
       Location(bounds("xmin"), bounds("ymin"), Rectangle(bounds("xmax"), bounds("ymax")))
-
     case _ =>
       Location(0, 0, Rectangle(0, 0))
 
@@ -66,7 +63,7 @@ object boundingBox {
       val loc = this.apply(shape.asInstanceOf[Shape])
       bound("xmin") = Math.min(bound("xmin"), loc.x)
       bound("ymin") = Math.min(bound("ymin"), loc.y)
-      var shRect = loc.child.asInstanceOf[Rectangle] // This is always a Rectangle
+      val shRect = loc.child.asInstanceOf[Rectangle] // This is always a Rectangle
       bound("xmax") = Math.max(bound("xmax"), shRect.width + loc.x)
       bound("ymax") = Math.max(bound("ymax"), shRect.height + loc.y)
     }
