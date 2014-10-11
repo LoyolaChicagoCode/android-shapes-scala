@@ -12,7 +12,7 @@ object size {
   def apply(s: Shape): Int = s match {
     case Circle(_) => 1
     case Rectangle(_, _) => 1
-    case Polygon(_, _, _, _) => 1
+    case Polygon(points @ _*) => 1
     case Location(_, _, shape) =>
       var len = 0
       len+=this.apply(shape)
