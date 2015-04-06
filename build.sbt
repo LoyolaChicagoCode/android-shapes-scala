@@ -17,10 +17,10 @@ scalacOptions in Compile ++= Seq("-feature", "-unchecked", "-deprecation")
 platformTarget in Android := "android-19"
 
 libraryDependencies ++= Seq(
-  "org.robolectric" % "robolectric" % "2.3" % "test",
+  "org.robolectric" % "robolectric" % "2.4" % "test",
   "junit" % "junit" % "4.11" % "test",
-  "org.mockito" % "mockito-core" % "1.9.5" % "test",
-  "org.scalatest" % "scalatest_2.10" % "2.2.1" % "test"
+  "org.mockito" % "mockito-core" % "1.10.5" % "test",
+  "org.scalatest" % "scalatest_2.10" % "2.2.2" % "test"
 )
 
 // Make the actually targeted Android jars available to Robolectric for shadowing.
